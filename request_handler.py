@@ -1,8 +1,5 @@
-import json 
-from customers.request import delete_customer, get_single_customer
-from employees.request import delete_employee, get_all_employees, get_single_employee, update_employee
+import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from locations.request import delete_location, get_all_locations, get_single_location
 from animals import get_all_animals, get_single_animal, create_animal, delete_animal, update_animal
 from locations import get_all_locations, get_single_location, create_location, delete_location, update_location
 from employees import get_all_employees, get_single_employee, create_employee, delete_employee, update_employee
@@ -125,10 +122,8 @@ class HandleRequests(BaseHTTPRequestHandler):
         
 
 
-    # Here's a method on the class that overrides the parent's method.
-    # It handles any PUT request.
-    def do_PUT(self):
-        self.do_POST()
+  
+    
 
 
     def do_DELETE(self):
