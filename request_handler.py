@@ -17,11 +17,11 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         # Check if there is a query string parameter
         if "?" in resource:
-            # GIVEN: /customers?email=jenna@solis.com
+            # GIVEN: localhost:800/customers?email=jenna@solis.com ------ localhost:800, customers?email=blahblabh customers, email=blahblabh
 
-            param = resource.split("?")[1]  # email=jenna@solis.com
+            param = resource.split("?")[1]  # email=jenna@solis.com   
             resource = resource.split("?")[0]  # 'customers'
-            pair = param.split("=")  # [ 'email', 'jenna@solis.com' ]
+            pair = param.split("=")  # [ 'email', 'jenna@solis.com' ] 
             key = pair[0]  # 'email'
             value = pair[1]  # 'jenna@solis.com'
 
@@ -174,9 +174,11 @@ class HandleRequests(BaseHTTPRequestHandler):
     # Parse the URL
         (resource, id) = self.parse_url(self.path)
 
+        success = False
+
     # Delete a single animal from the list
         if resource == "animals":
-            update_animal(id, post_body)
+           success = update_animal(id, post_body)
 
         if resource == "customers":
             update_customer(id, post_body)
@@ -186,6 +188,11 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "locations":
             update_location(id, post_body)
+
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)
 
     # Encode the new animal and send in response
         self.wfile.write("".encode())
